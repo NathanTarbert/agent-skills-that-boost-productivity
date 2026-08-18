@@ -155,6 +155,6 @@ Only one rule really matters: **the description says *when* to reach for the ski
 
 **MIT** · Built by [Nathan Tarbert](https://github.com/NathanTarbert)
 
-⭐ Star it if a skill here saved you an afternoon.
+⭐ Star it if a skill here saved you time.
 
 </div>

@@ -1,0 +1,26 @@
+name: Validate skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Read-only token. This workflow runs code from forks, so it gets no write access
+# and no access to repository secrets.
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # No install step — the validator uses Node builtins only, so nothing
+      # from a contributor's package.json is ever executed here.
+      - name: Validate every skill
+        run: node scripts/validate-skills.mjs

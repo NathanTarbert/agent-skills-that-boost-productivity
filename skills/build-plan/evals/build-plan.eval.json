@@ -1,0 +1,61 @@
+{
+  "skill": "build-plan",
+  "notes": "Run each prompt in a fresh session with the skill installed and nothing else in context. Record results in the PR.",
+
+  "should_trigger": [
+    "Plan out how we'd add password reset to the app.",
+    "Write me a roadmap for launching the ambassador program.",
+    "Before we start coding — how would we approach migrating off the old billing provider?",
+    "Put a spec in Notion for the new onboarding flow.",
+    "Ayúdame a planear el rediseño de la página de precios."
+  ],
+
+  "should_not_trigger": [
+    "Fix the typo in the README.",
+    "Why is this test failing?",
+    "Rename this function to sendResetEmail."
+  ],
+
+  "behaviors": [
+    {
+      "given": "Plan out how we'd add password reset to the app.",
+      "expect": [
+        "States the scope classification out loud before asking anything",
+        "Asks questions one per message, not a batch",
+        "Asks where the plan should be written before writing it",
+        "Produces two pages, not one",
+        "Every task on the machine page has an acceptance and a verify field",
+        "Machine page task IDs are zero-padded and sequential"
+      ]
+    },
+    {
+      "given": "Ayúdame a planear el rediseño de la página de precios.",
+      "expect": [
+        "Every human-facing word is Spanish, including the questions it asks",
+        "Machine page structural keys stay English (plan_id, depends_on, acceptance, verify, status)",
+        "Machine page values are Spanish"
+      ]
+    },
+    {
+      "given": "Just give me a quick plan for adding a health check endpoint.",
+      "expect": [
+        "Classifies as small scope",
+        "Asks at most two questions",
+        "Still produces both pages — does not collapse to one because the task is small"
+      ]
+    },
+    {
+      "given": "Here's an existing plan page. Execute it.",
+      "expect": [
+        "Reads only the machine page to execute",
+        "Checks plan_version and source_page before starting",
+        "Runs each task's verify before ticking its checkbox",
+        "Stops and reports on a failed verify instead of continuing"
+      ]
+    }
+  ],
+
+  "known_gaps": [
+    "Notion child-page-at-bottom placement is documented from the API contract, not verified against a live workspace."
+  ]
+}
